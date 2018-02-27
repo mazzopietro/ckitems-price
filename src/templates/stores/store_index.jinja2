@@ -1,0 +1,19 @@
+{% extends 'base.jinja2' %}
+{% block content %}
+
+  <h1>Stores / <small class="text-muted">list of supported stores</small></h1>
+  <hr>
+  <div class="list-group">
+    {% for store in stores %}
+      <a href="{{ url_for('stores.store_page', store_id=store._id) }}" class="list-group-item list-group-item-action">
+        <h5>{{ store.name }}</h5>
+        <span>All URLs in this store should start with <strong>{{ store.url_prefix }}</strong></span>
+      </a>
+    {% endfor %}
+  </div>
+  {% if session['email'] in config.ADMINS %}
+    <hr>
+    <a href="{{ url_for('stores.create_store') }}" class="btn btn-success"><i class="fas fa-plus"></i> Create new</a>
+  {% endif %}
+
+{% endblock %}
